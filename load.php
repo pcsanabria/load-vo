@@ -398,6 +398,9 @@ class timthumb {
 		return false;
 	}
 	protected function serveErrors(){
+		header ($_SERVER['SERVER_PROTOCOL'] . ' 400 Bad Request');
+		echo "Se ha producido un error (EX--001)....";
+		return false;
 		$html = '<ul>';
 		foreach($this->errors as $err){
 			$html .= '<li>' . htmlentities($err) . '</li>';
@@ -1040,11 +1043,20 @@ class timthumb {
 	{
 		switch ($property) {
 			case 'src':
-				return "http://vidrieraonline.com/img/0a890abf09b6ef953734969c6aeee8d4.jpg";
+				if (isset($_GET["dir"]) and 
+					!empty($_GET["dir"]) and 
+					isset($_GET["img"]) and 
+					!empty($_GET["img"]) 
+					)	
+
+				return "http://vidrieraonline.com/pac/docs/".$_GET["dir"]."/".$_GET["img"];
 				break;			
 			
 			default:
-				return $default;
+				if (isset($_GET[$property]))
+					return $_GET[$property];
+				else
+					return $default;
 		}
 	}
 	protected function openImage($mimeType, $src){
