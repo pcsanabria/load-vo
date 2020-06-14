@@ -1,0 +1,5 @@
+RewriteEngine on
+
+
+
+RewriteRule ^([^_]*)/(\d*)/(\d*)/(\d*)/([^_]*)$ load.php?dir=$1&w=$2&h=$3&zc=$4&img=$5 [QSA,L]
